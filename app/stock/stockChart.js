@@ -35,6 +35,23 @@ const options = {
     legend: {
       position: "top",
     },
+  },
+  scales: {
+    x: {
+      type: "category",
+    },
+    y: {
+      type: "linear",
+    },
+  },
+};
+
+const options2 = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
     title: {
       display: true,
       text: "Chart.js Line Chart",
@@ -52,7 +69,12 @@ const options = {
 
 // const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
-export default function StockChart({ stockPrices, dates, secondPrices }) {
+export default function StockChart({
+  stockPrices,
+  dates,
+  secondPrices,
+  stock,
+}) {
   "use client";
   const labels = dates.map((date, index) => {
     const { year, month } = date;
@@ -60,14 +82,16 @@ export default function StockChart({ stockPrices, dates, secondPrices }) {
 
     if (prevDate && prevDate.year === year) {
       // If the year is the same as the previous date, display only the month
-      return new Date(year, month - 1).toLocaleString("default", {
-        month: "short",
-      });
+      // return new Date(year, month - 1).toLocaleString("default", {
+      //   month: "short",
+      // });
+
+      //display a blank
+      return "";
     } else {
       // If the year is different from the previous date, display the year and month
       return new Date(year, month - 1).toLocaleString("default", {
         year: "numeric",
-        month: "short",
       });
     }
   });
@@ -76,7 +100,7 @@ export default function StockChart({ stockPrices, dates, secondPrices }) {
     labels: labels,
     datasets: [
       {
-        label: "Stock Prices",
+        label: stock,
         data: stockPrices,
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
@@ -94,14 +118,5 @@ export default function StockChart({ stockPrices, dates, secondPrices }) {
     ],
   };
 
-  return (
-    <div>
-      {secondPrices && (
-        <div>
-          <label>Show Contributions</label>
-        </div>
-      )}
-      <Line data={data} options={options} />
-    </div>
-  );
+  return <Line data={data} options={options} />;
 }

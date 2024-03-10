@@ -13,8 +13,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="bg-offwhite text-offblack py-4 border-b-4 border-gray-300">
-          <div className="flex justify-between">
+        <header className="bg-offwhite text-offblack py-4 shadow-lg">
+          <div className="flex justify-between items-center">
             <div className="flex ml-4 pl-10 ">
               <Link href="/" className="flex justify-center items-center">
                 <span
