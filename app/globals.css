@@ -34,6 +34,26 @@ body {
   }
 } */
 
-.bg-offwhite {
+/* .light {
   background-color: #f6f0e8; /* Default off-white color */
+/* } */
+.greeny {
+  background-color: #90ee90; /* Default off-white color */
 }
+
+@keyframes turtleMovement {
+  0%,
+  100% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+.turtle-animation {
+  animation: turtleMovement 1s infinite ease-in-out;
+  will-change: transform;
+}
+
+/* components/CursorTrail.module.css */

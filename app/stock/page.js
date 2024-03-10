@@ -49,13 +49,17 @@ export default async function Stock({ searchParams }) {
     percentProfit: Math.round(percentProfit * 100) / 100,
     totalContributions: Math.round(totalContributions * 100) / 100,
     totalBalance: Math.round(totalBalance * 100) / 100,
+    startYear,
+    deposit,
+    stock,
+    interval,
   };
 
   return (
-    <div className="w-full px-[10%] py-5 flex flex-col gap-10 items-stretch bg-offwhite">
-      <div className="text-xl w-full p-10 flex flex-col gap-2 justify-center shadow-md rounded-xl">
+    <div className="w-full px-[10%] py-8 flex flex-col gap-10 items-stretch bg-offwhite">
+      <div className="text-xl w-full p-10 flex flex-col gap-2 justify-center shadow-md rounded-xl greeny dark:bg-emerald-700">
         <h2 className="w-full text-3xl font-bold">The DCA Advantage</h2>
-        <hr className="w-full py-2" />
+        <hr className="w-full py-2 border-green-700 dark:border-emerald-500" />
         <p>
           The Dollar Cost Averaging is a simple investment strategy that is best
           employed on large stock indicies over a long period of time. It works
@@ -65,56 +69,103 @@ export default async function Stock({ searchParams }) {
         </p>
       </div>
 
-      <form action="/stock">
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <TextField label="Stock" name="stock" defaultValue={stock} />
-          </Grid>
-          <Grid item>
-            <TextField
-              label="Deposit"
-              type="number"
-              inputProps={{ min: 0 }}
-              name="deposit"
-              defaultValue={100}
-            />
-          </Grid>
-          <Grid item>
-            <Select name="interval" defaultValue={interval}>
-              <MenuItem value="weekly">Weekly</MenuItem>
-              <MenuItem value="biweekly">Biweekly</MenuItem>
-              <MenuItem value="monthly">Monthly</MenuItem>
-            </Select>
-          </Grid>
-          <Grid item>
-            <Select name="startYear" defaultValue={startYear}>
-              <MenuItem value={2024 - 10}>10 Years</MenuItem>
-              <MenuItem value={2024 - 5}>5 Years</MenuItem>
-              <MenuItem value={2024 - 2}>2 Years</MenuItem>
-              <MenuItem value={2 - 1}>1 Year</MenuItem>
-            </Select>
-          </Grid>
-          <Grid item>
-            <Button
-              variant="contained"
-              type="submit"
-              style={{
-                backgroundColor: "#1976D2",
-                transition: "background-color 0.3s",
-              }}
-            >
-              Submit
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-      <div>
+      <div className="w-full flex flex-col items-center justify-evenly p-10 shadow-lg rounded-xl dark:bg-stone-800 dark:shadow-stone-700 dark:shadow-inner">
+        <h2 className="w-full text-3xl font-bold py-2">Select Simulation</h2>
+        <hr className="w-full py-2 border-stone-300" />
+        <form action="/stock" className="w-full">
+          <div className="grid grid-cols-5 gap-4 items-stretch justify-center">
+            <div className="flex flex-col">
+              <label
+                htmlFor="stock"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Stock
+              </label>
+              <input
+                type="text"
+                id="stock"
+                name="stock"
+                defaultValue={stock}
+                className="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-stone-700 dark:text-white dark:border-gray-600 dark:focus:ring-emerald-600 dark:focus:border-emerald-600"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="deposit"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Deposit
+              </label>
+              <input
+                type="number"
+                id="deposit"
+                name="deposit"
+                min="0"
+                defaultValue={100}
+                className="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-stone-700 dark:text-white dark:border-gray-600 dark:focus:ring-emerald-600 dark:focus:border-emerald-600"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="interval"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Interval
+              </label>
+              <select
+                id="interval"
+                name="interval"
+                defaultValue={interval}
+                className="mt-1 px-3 py-2 block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-stone-700 dark:text-white dark:border-gray-600 dark:focus:ring-emerald-600 dark:focus:border-emerald-600"
+              >
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Biweekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="startYear"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Start Year
+              </label>
+              <select
+                id="startYear"
+                name="startYear"
+                defaultValue={startYear}
+                className="mt-1 px-3 py-2 block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-stone-700 dark:text-white dark:border-gray-600 dark:focus:ring-emerald-600 dark:focus:border-emerald-600"
+              >
+                <option value={2024 - 10}>10 Years</option>
+                <option value={2024 - 5}>5 Years</option>
+                <option value={2024 - 2}>2 Years</option>
+                <option value={2024 - 1}>1 Year</option>
+              </select>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="px-4 py-2 mt-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-600"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <h2 className="w-full text-3xl font-bold py-2 pt-6">
+          DCA Vs Savings Account
+        </h2>
+        <hr className="w-full py-2 border-stone-300" />
         <StockChart
           stockPrices={assetData.assets}
           dates={dates}
           secondPrices={contributions}
           stock={stock}
         />
+
+        <h2 className="w-full text-3xl font-bold py-2 pt-6">{stock}'s Value</h2>
+        <hr className="w-full py-2 border-stone-300" />
         <StockChart stockPrices={stockPrices} dates={dates} stock={stock} />
       </div>
       <div>

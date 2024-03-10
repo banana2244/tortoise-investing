@@ -39,30 +39,15 @@ const options = {
   scales: {
     x: {
       type: "category",
+      grid: {
+        color: "rgba(211,211,211,.5)",
+      },
     },
     y: {
       type: "linear",
-    },
-  },
-};
-
-const options2 = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Chart.js Line Chart",
-    },
-  },
-  scales: {
-    x: {
-      type: "category",
-    },
-    y: {
-      type: "linear",
+      grid: {
+        color: "rgba(211,211,211,.5)",
+      },
     },
   },
 };
@@ -102,8 +87,8 @@ export default function StockChart({
       {
         label: stock,
         data: stockPrices,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "rgb(219,0,0)",
+        backgroundColor: "rgba(219,0,0, 0.5)",
       },
       ...(secondPrices
         ? [
