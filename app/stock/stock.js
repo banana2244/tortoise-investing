@@ -62,7 +62,7 @@ export async function getStockData(
   intervalName = "weekly"
 ) {
   const intervals = {
-    weekly: 0,
+    weekly: 1,
     biweekly: 2,
     monthly: 4,
   };
