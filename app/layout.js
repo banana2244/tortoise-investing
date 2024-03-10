@@ -20,6 +20,9 @@ const turtleMotionVariants = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <title>🐢 Tortoise Investing</title>
+      </head>
       <body
         className={
           inter.className +
