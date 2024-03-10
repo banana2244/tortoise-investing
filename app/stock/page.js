@@ -1,11 +1,27 @@
 import React from "react";
-import { parseCsv } from "./csvUtils";
 import StockChart from "./stockChart";
 
 import { getStockData, getAssetData } from "./stock";
 
-export default function Stock() {
-  const { dates, stockPrices } = getStockData("SPY", 2015, "monthly");
+export default async function Stock() {
+  const { dates, stockPrices, error } = await getStockData(
+    "SOXL",
+    2015,
+    "monthly"
+  );
+
+  console.log("\n\nGot stock data with error?: ", error);
+  console.log("\n\nSTOCK DATA", stockPrices);
+
+  if (error != "null" && error != null) {
+    return (
+      <div>
+        <p>An error occurred while obtaining stock data</p>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   const assetData = getAssetData(stockPrices, 100);
 
   //make array for the contributions based on the assetData.assets
