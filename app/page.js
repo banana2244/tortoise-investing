@@ -17,7 +17,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative h-screen flex flex-col items-center justify-center bg-offwhite text-offblack p-8">
+    <div className="relative h-screen flex flex-col items-center justify-center bg-white text-offblack p-8">
       <Head>
         <title>Break the Investment Barrier</title>
         <meta
