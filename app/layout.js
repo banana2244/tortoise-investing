@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="bg-offwhite text-offblack py-4 shadow-lg">
+        <header className="bg-offwhite text-offblack py-4">
           <div className="flex justify-between items-center">
             <div className="flex ml-4 pl-10 ">
               <Link href="/" className="flex justify-center items-center">

@@ -52,7 +52,7 @@ export default async function Stock({ searchParams }) {
   };
 
   return (
-    <div className="w-full px-[10%] py-5 flex flex-col gap-10 items-stretch">
+    <div className="w-full px-[10%] py-5 flex flex-col gap-10 items-stretch bg-offwhite">
       <div className="text-xl w-full p-10 flex flex-col gap-2 justify-center shadow-md rounded-xl">
         <h2 className="w-full text-3xl font-bold">The DCA Advantage</h2>
         <hr className="w-full py-2" />
