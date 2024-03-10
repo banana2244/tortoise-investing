@@ -43,7 +43,7 @@ export default async function Stock({ searchParams }) {
   const totalContributions = assetData.assets.length * deposit;
   const totalBalance = assetData.assets[assetData.assets.length - 1];
   const totalProfit = totalBalance - totalContributions;
-  const percentProfit = (totalProfit / totalBalance) * 100;
+  const percentProfit = (totalBalance / totalContributions) * 100;
   const stats = {
     totalProfit: Math.round(totalProfit * 100) / 100,
     percentProfit: Math.round(percentProfit * 100) / 100,
