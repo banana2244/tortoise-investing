@@ -26,8 +26,14 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 } */
+
+.bg-offwhite {
+  background-color: #f6f0e8; /* Default off-white color */
+}
