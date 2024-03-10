@@ -1,36 +1,63 @@
 "use client";
-import Image from "next/image";
-import Head from "next/head";
-import Link from "next/link";
-import Button from "@mui/material/Button";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useEffect } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import Button from '@mui/material/Button';
+import { motion } from 'framer-motion';
 
 export default function Home() {
-  const { scrollYProgress } = useScroll();
-  const headingScale = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-  const paragraphOpacity = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
+  useEffect(() => {
+    // Disable scrolling using CSS
+    document.body.style.overflow = 'hidden';
+
+    // Re-enable scrolling when the component is unmounted
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  }, []);
 
   return (
-    <div className="relative h-screen flex items-center justify-center overflow-hidden bg-offwhite text-offblack">
+    <div className="relative h-screen flex flex-col items-center justify-center bg-offwhite text-offblack p-8">
+      <Head>
+        <title>Break the Investment Barrier</title>
+        <meta
+          name="description"
+          content="Learn about Dollar Cost Averaging and its benefits."
+        />
+      </Head>
       <motion.h1
-        className="text-8xl font-bold text-center"
-        style={{
-          scale: headingScale,
-        }}
+        className="text-6xl font-bold text-center mb-4 mt-[-70px]"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        What is Dollar Cost Averaging?
+        Break the Investment Barrier
       </motion.h1>
-      <motion.p
-        className="absolute inset-0 flex items-center justify-center text-lg text-center"
-        style={{
-          opacity: paragraphOpacity,
-        }}
-      >
-        Dollar Cost Averaging is an investment strategy where you regularly
-        invest a fixed amount of money regardless of the asset's price. This
-        approach helps mitigate the impact of market volatility and potentially
-        lowers the average cost per share over time.
-      </motion.p>
+      <div className="max-w-lg text-lg text-center mb-4">
+        <motion.p
+          className=""
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+        >
+          Explore this beginner-friendly simulation to understand the benefits
+          over a regular savings account
+        </motion.p>
+      </div>
+      <Link href="/stock">
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              backgroundColor: '#1976D2',
+              transition: 'background-color 0.3s',
+            }}
+          >
+            Start Simulation
+          </Button>
+        </motion.div>
+      </Link>
     </div>
   );
 }

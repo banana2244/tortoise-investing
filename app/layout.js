@@ -1,9 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
-import Head from "next/head";
 import Link from "next/link";
-import Button from "@mui/material/Button";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="bg-offwhite text-offblack py-4">
+        <header className="bg-offwhite text-offblack py-4 border-b-4 border-gray-300">
           <div className="flex justify-between">
-            <div className="flex ml-4 pw-10">
+            <div className="flex ml-4 pl-10 ">
               <Link href="/" className="flex justify-center items-center">
                 <span
                   role="img"
@@ -32,17 +29,14 @@ export default function RootLayout({ children }) {
                 </h1>
               </Link>
             </div>
-            <nav className="flex mr-4">
-              <Link href="/" className="text-offblack hover:underline mr-4">
-                Home
-              </Link>
+            <div className="flex mr-4 pr-20">
               <Link
                 href="/stock"
-                className="text-offblack hover:underline mr-4"
+                className="text-2xl flex items-center text-offblack hover:underline mr-4 font-sans"
               >
-                Try me
+                Simulate
               </Link>
-            </nav>
+            </div>
           </div>
         </header>
         {children}
