@@ -58,35 +58,52 @@ export function getStockData(
 
   const interval = intervals[intervalName];
 
-  const raw_data = loadCsv(ticker);
+  const rawData = loadCsv(ticker);
 
-  const filtered_data = raw_data
+  const dates = [];
+  const stockPrices = [];
+
+  rawData
     .filter((row, i) => i % interval === 0)
     .filter((row) => parseDate(row["Date"]).year >= startYear)
-    .map((row) => ({
-      date: parseDate(row["Date"]),
-      close: Number(row["Close"]),
-    }));
+    .forEach((row) => {
+      dates.push(parseDate(row["Date"]));
+      stockPrices.push(Number(row["Close"]));
+    });
 
-  return filtered_data;
+  return {
+    dates,
+    stockPrices,
+  };
 }
 
 /*
+ *
  *  Params
  *  stock_data - stock datapoints, each data point will be invested on for the investAmount
  *  investAmount - the amount of usd to invest into the stock at each data point
- * Returns total assets for each interval
+ *
+ *  Returns
+ *  total assets for each interval
+ *  total shares bought
  */
-export function getAssetData(stock_data, investAmount) {
-  const runningShares = 0;
-  const accountBalances = [];
+export function getAssetData(stockPrices, investAmount) {
+  let runningShares = 0;
 
-  const assetList = stock_data.map((data) => {
-    stockPrice = data.close;
-    numShares = investAmount / stockPrice;
-    runningShares += stockToBuy;
+  const assetList = stockPrices.map((stockPrice) => {
+    const numShares = investAmount / stockPrice;
+    runningShares += numShares;
 
-    currentAssets = runningShares * stockPrice;
-    return currentAssets;
+    const currentAssets = runningShares * stockPrice;
+    return Math.round(100 * currentAssets) / 100;
   });
+
+  return {
+    assets: assetList,
+    totalShares: runningShares,
+  };
+}
+
+export function limitDataPoints(data, maxDataPoints) {
+  totalDataPoints = data.length;
 }

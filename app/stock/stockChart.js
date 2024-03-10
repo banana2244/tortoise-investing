@@ -51,29 +51,44 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+// const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
-const Home = () => {
+const StockChart = ({ stockPrices, dates, secondPrices }) => {
   const [showSecondDataset, setShowSecondDataset] = useState(false);
 
+  // Format the labels based on the dates
+  const labels = dates.map((date, index) => {
+    const { year, month } = date;
+    const prevDate = index > 0 ? dates[index - 1] : null;
+
+    if (prevDate && prevDate.year === year) {
+      // If the year is the same as the previous date, display only the month
+      return new Date(year, month - 1).toLocaleString("default", {
+        month: "short",
+      });
+    } else {
+      // If the year is different from the previous date, display the year and month
+      return new Date(year, month - 1).toLocaleString("default", {
+        year: "numeric",
+        month: "short",
+      });
+    }
+  });
+
   const data = {
-    labels,
+    labels: labels,
     datasets: [
       {
-        label: "Dataset 1",
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
+        label: "Stock Prices",
+        data: stockPrices,
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
-      ...(showSecondDataset
+      ...(secondPrices && showSecondDataset
         ? [
             {
-              label: "Dataset 2",
-              data: labels.map(() =>
-                faker.datatype.number({ min: -1000, max: 1000 })
-              ),
+              label: "Contributions",
+              data: secondPrices,
               borderColor: "rgb(53, 162, 235)",
               backgroundColor: "rgba(53, 162, 235, 0.5)",
             },
@@ -88,19 +103,21 @@ const Home = () => {
 
   return (
     <div>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={showSecondDataset}
-            onChange={handleSecondDatasetChange}
-          />
-          Show Second Dataset
-        </label>
-      </div>
+      {secondPrices && (
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={showSecondDataset}
+              onChange={handleSecondDatasetChange}
+            />
+            Show Contributions
+          </label>
+        </div>
+      )}
       <Line data={data} options={options} />
     </div>
   );
 };
 
-export default Home;
+export default StockChart;
