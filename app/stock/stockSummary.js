@@ -46,10 +46,10 @@ export default function StockSummary({ stats }) {
           Starting in {stats.startYear}, you began investing ${stats.deposit} on
           a {stats.interval} basis. You invested a total of $
           {stats.totalContributions} into {stats.stock}. Had you placed your
-          money into a savings account instead, you would've {moneySummary}{" "}
+          money into a savings account instead, you would have {moneySummary}{" "}
           <span className={moneyColor}>${Math.abs(stats.totalProfit)}</span>.
           This means that by simply following the DCA strategy for {stats.stock}
-          , you would've {moneyStatus} your money by{" "}
+          , you would have {moneyStatus} your money by{" "}
           <span className={moneyColor}>{Math.abs(stats.percentProfit)}%</span>
         </p>
       </div>

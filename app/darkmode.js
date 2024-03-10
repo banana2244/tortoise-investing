@@ -19,7 +19,7 @@ export default function DarkMode() {
         body.classList.remove("dark");
       }
     }
-  }, []);
+  }, [isDarkMode]);
 
   const toggleTheme = () => {
     const currentTheme = localStorage.getItem("theme") || "light";

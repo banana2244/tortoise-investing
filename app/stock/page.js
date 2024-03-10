@@ -164,7 +164,7 @@ export default async function Stock({ searchParams }) {
           stock={stock}
         />
 
-        <h2 className="w-full text-3xl font-bold py-2 pt-6">{stock}'s Value</h2>
+        <h2 className="w-full text-3xl font-bold py-2 pt-6">{stock} Value</h2>
         <hr className="w-full py-2 border-stone-300" />
         <StockChart stockPrices={stockPrices} dates={dates} stock={stock} />
       </div>
