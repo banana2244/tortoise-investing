@@ -1,3 +1,4 @@
+"use server";
 import fs from "fs";
 import Papa from "papaparse";
 
@@ -11,59 +12,25 @@ import Papa from "papaparse";
  * error
  */
 async function loadCsv(ticker) {
-  const filePath = "data/" + ticker + ".csv";
-
   // If we don't have the file, get it from yahoo
-  if (!fs.existsSync(filePath)) {
-    const request = await fetch(
-      `https://query1.finance.yahoo.com/v7/finance/download/${ticker}?period1=728317800&period2=1710008217&interval=1wk&events=history&includeAdjustedClose=true`
+  const request = await fetch(
+    `https://query1.finance.yahoo.com/v7/finance/download/${ticker}?period1=728317800&period2=1710008217&interval=1wk&events=history&includeAdjustedClose=true`
+  );
+
+  if (!request.ok) {
+    console.error(
+      "ERROR: Failed to obtain csv data from yahoo\n",
+      request.statusText
     );
-
-    if (!request.ok) {
-      console.error(
-        "ERROR: Failed to obtain csv data from yahoo\n",
-        request.statusText
-      );
-      return {
-        data: null,
-        error: request.statusText,
-      };
-    }
-
-    const response = await request.text();
-    console.log(response);
-
-    try {
-      fs.writeFileSync(filePath, response, (err) => {
-        if (err) throw err;
-      });
-    } catch (error) {
-      console.error("ERROR: Failed to save csv to file\n", error);
-      return {
-        data: null,
-        error: error,
-      };
-    }
-
-    // Obtain file from yahoo
-    // https://query1.finance.yahoo.com/v7/finance/download/SPY?period1=728317800&period2=1710008217&interval=1w&events=history&includeAdjustedClose=true
-  }
-
-  //Attempt to read text from file
-  try {
-    const file = fs.readFileSync(filePath, "utf-8");
-    const data = Papa.parse(file, { header: true }).data;
-    return {
-      data,
-      error: null,
-    };
-  } catch (error) {
-    console.error(`ERROR: Failed to load csv data for ${ticker}\n`, error);
     return {
       data: null,
-      error: error,
+      error: request.statusText,
     };
   }
+
+  const response = await request.text();
+  const data = await Papa.parse(response, { header: true }).data;
+  return { data: data, error: null };
 }
 
 /*
@@ -113,9 +80,7 @@ export async function getStockData(
   const interval = intervals[intervalName];
 
   const { data, error } = await loadCsv(ticker);
-  console.log(`Loaded csv with error?:(${error})`);
   if (error != null) {
-    console.log("GET STOCK DATA EARLY RETURN");
     return { dates: null, stockPrices: null, error: error };
   }
 
@@ -130,14 +95,11 @@ export async function getStockData(
       stockPrices.push(Number(row["Close"]));
     });
 
-  let toReturn = {
+  return {
     dates: dates,
     stockPrices: stockPrices,
     error: null,
   };
-
-  console.log("RETURN stock data:\n", toReturn);
-  return toReturn;
 }
 
 /*
@@ -150,7 +112,7 @@ export async function getStockData(
  *  total assets for each interval
  *  total shares bought
  */
-export function getAssetData(stockPrices, investAmount) {
+export async function getAssetData(stockPrices, investAmount) {
   let runningShares = 0;
 
   const assetList = stockPrices.map((stockPrice) => {
@@ -167,6 +129,6 @@ export function getAssetData(stockPrices, investAmount) {
   };
 }
 
-export function limitDataPoints(data, maxDataPoints) {
-  totalDataPoints = data.length;
-}
+// export function limitDataPoints(data, maxDataPoints) {
+//   totalDataPoints = data.length;
+// }

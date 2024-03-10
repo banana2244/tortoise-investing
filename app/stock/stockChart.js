@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import {
@@ -28,9 +27,9 @@ Chart.register(
  * Returns stock data starting at the specified year, with datapoints
  * that have a spacing of interval days between the
  */
-export function getStockData(ticker, year, interval) {}
+// export async function getStockData(ticker, year, interval) {}
 
-export const options = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -53,10 +52,8 @@ export const options = {
 
 // const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
-const StockChart = ({ stockPrices, dates, secondPrices }) => {
-  const [showSecondDataset, setShowSecondDataset] = useState(false);
-
-  // Format the labels based on the dates
+export default function StockChart({ stockPrices, dates, secondPrices }) {
+  "use client";
   const labels = dates.map((date, index) => {
     const { year, month } = date;
     const prevDate = index > 0 ? dates[index - 1] : null;
@@ -84,7 +81,7 @@ const StockChart = ({ stockPrices, dates, secondPrices }) => {
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
-      ...(secondPrices && showSecondDataset
+      ...(secondPrices
         ? [
             {
               label: "Contributions",
@@ -97,27 +94,14 @@ const StockChart = ({ stockPrices, dates, secondPrices }) => {
     ],
   };
 
-  const handleSecondDatasetChange = (event) => {
-    setShowSecondDataset(event.target.checked);
-  };
-
   return (
     <div>
       {secondPrices && (
         <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={showSecondDataset}
-              onChange={handleSecondDatasetChange}
-            />
-            Show Contributions
-          </label>
+          <label>Show Contributions</label>
         </div>
       )}
       <Line data={data} options={options} />
     </div>
   );
-};
-
-export default StockChart;
+}

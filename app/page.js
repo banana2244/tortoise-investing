@@ -1,18 +1,18 @@
 "use client";
-import React, { useEffect } from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import Button from '@mui/material/Button';
-import { motion } from 'framer-motion';
+import { useEffect } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import Button from "@mui/material/Button";
+import { motion } from "framer-motion";
 
 export default function Home() {
   useEffect(() => {
     // Disable scrolling using CSS
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     // Re-enable scrolling when the component is unmounted
     return () => {
-      document.body.style.overflow = 'visible';
+      document.body.style.overflow = "visible";
     };
   }, []);
 
@@ -29,7 +29,7 @@ export default function Home() {
         className="text-6xl font-bold text-center mb-4 mt-[-70px]"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
         Break the Investment Barrier
       </motion.h1>
@@ -44,20 +44,20 @@ export default function Home() {
           over a regular savings account
         </motion.p>
       </div>
-      <Link href="/stock">
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+        <Link href="/stock">
           <Button
             variant="contained"
             color="primary"
             style={{
-              backgroundColor: '#1976D2',
-              transition: 'background-color 0.3s',
+              backgroundColor: "#1976D2",
+              transition: "background-color 0.3s",
             }}
           >
             Start Simulation
           </Button>
-        </motion.div>
-      </Link>
+        </Link>
+      </motion.div>
     </div>
   );
 }

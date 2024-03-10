@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
                   🐢
                 </span>
                 <h1 className="text-2xl font-bold cursor-pointer ml-2">
-                  tortoise investing
+                  Tortoise Investing
                 </h1>
               </Link>
             </div>
