@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
                 </h1>
               </Link>
             </div>
-            <div className="flex mr-4 pr-20">
+            <div className="flex mr-4 pr-20 gap-8 justify-center items-center">
               <DarkMode />
               <Link
                 href="/stock"

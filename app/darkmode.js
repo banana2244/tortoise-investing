@@ -2,7 +2,8 @@
 
 import { Switch, FormControlLabel } from "@mui/material";
 import { useState, useEffect } from "react";
-
+import { FaCloudMoon } from "react-icons/fa";
+import { CiCloudMoon } from "react-icons/ci";
 export default function DarkMode() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -38,11 +39,6 @@ export default function DarkMode() {
   };
 
   return (
-    <FormControlLabel
-      control={
-        <Switch label="Dark Mode" checked={isDarkMode} onChange={toggleTheme} />
-      }
-      label="Dark Mode"
-    />
+    <FaCloudMoon className="text-3xl cursor-pointer" onClick={toggleTheme} />
   );
 }
