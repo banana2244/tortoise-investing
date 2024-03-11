@@ -197,7 +197,7 @@ export default async function Stock({ searchParams }) {
         <p>
           There is always an inherent risk when investing into securities.
           Investing into stocks, bonds, mutual funds, and money market funds
-          involve risk of loss. A security or firm's past investment performance
+          involve risk of loss. A security or firms past investment performance
           is not a guarantee or predictor of future investment performance.
         </p>
       </footer>
